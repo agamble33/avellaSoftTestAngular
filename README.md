@@ -1,4 +1,6 @@
-# AllevaSoft2
+# AllevaSoft2 angularjs to Angular 14
+
+Converted angularjs code base to modern Angular 14.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.2.3.
 
