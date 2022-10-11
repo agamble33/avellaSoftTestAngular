@@ -1,0 +1,65 @@
+<div>
+  <h2 style="text-align: center">Alleva Playlist</h2>
+  <button
+    class="create-btn"
+    *ngIf="!isCreate && !isUpdate"
+    (click)="showCreateSong()"
+  >
+    Create
+  </button>
+
+  <table ng-show="!isCreate && !isUpdate">
+    <tr>
+      <th>#</th>
+      <th>Artist</th>
+      <th>Title</th>
+      <th>Year</th>
+      <th></th>
+    </tr>
+    <tr *ngFor="let song of songs; let i = index">
+      <th>{{ i + 1 }}</th>
+      <td>{{ song.artist }}</td>
+      <td>{{ song.title }}</td>
+      <td>{{ song.year }}</td>
+      <td>
+        <button (click)="removeSong(song)">remove</button>
+        <button style="background-color: yellow" (click)="showUpdateSong(song)">
+          update
+        </button>
+      </td>
+    </tr>
+  </table>
+
+  <div *ngIf="isCreate || isUpdate">
+    <form (ngSubmit)="saveSong()" [formGroup]="form">
+      <label for="artist">Artist:</label><br />
+      <input type="text" formControlName="artist" /><br />
+      <ng-container
+        *ngIf="form.get('artist')?.dirty && form.get('artist')?.errors"
+      >
+        <p *ngIf="form.get('artist')?.errors?.['required']">
+          Artist name is required.
+        </p>
+      </ng-container>
+      <label for="title">Last name:</label><br />
+      <input type="text" formControlName="title" /><br />
+      <ng-container
+        *ngIf="form.get('title')?.dirty && form.get('title')?.errors"
+      >
+        <p *ngIf="form.get('title')?.errors?.['required']">
+          Last name is required.
+        </p>
+      </ng-container>
+      <label for="year">Year:</label><br />
+      <input type="text" formControlName="year" /><br /><br />
+      <ng-container *ngIf="form.get('year')?.dirty && form.get('year')?.errors">
+        <p *ngIf="form.get('year')?.errors?.['required']">Year is required.</p>
+        <p *ngIf="form.get('year')?.errors?.['maxlength']">Invalid year.</p>
+      </ng-container>
+      <span>
+        <button type="button" (click)="cancelForm()">Cancel</button>
+        <button type="submit" style="background-color: green">Submit</button>
+      </span>
+    </form>
+  </div>
+</div>
